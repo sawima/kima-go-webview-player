@@ -1,20 +1,10 @@
-package main
-
-// include gtk header, to access the GTK related C-Types
-
-/*
-#cgo linux openbsd freebsd pkg-config: gtk+-3.0 webkit2gtk-4.0
-#include <gtk/gtk.h>
-*/
-import "C"
+package filter
 
 import (
 	"math/rand"
 	"os"
 	"os/signal"
 	"time"
-
-	"github.com/webview/webview"
 )
 
 var websites []string = []string{
@@ -28,25 +18,24 @@ var websites []string = []string{
 	"https://bi.aliyun.com/token3rd/screen/view/pc.htm?validityTime=120&bizdate=2023-07-11&pageId=9090b08e-b9ce-4f1c-a854-e2bef8722522&accessId=INNER_60ee294786b8409aae1ed598e7e693bc&timestamp=1689061811298&signature=jiCVJsF0ma029HQUtpDxxvJ73cy7JFgO3Q1170ImG3A%3D",
 }
 var navUrl = "http://loaclahost:8888"
-var w = webview.New(true)
 
-func main() {
-
-	// url := "http://localhost:8888/"
-
-	// debug := true
-	// w := webview.New(debug)
-	window := w.Window()
-
-	defer w.Destroy()
-
-	C.gtk_window_fullscreen((*C.GtkWindow)(window))
-
-	w.SetTitle("Vending Machine")
-	w.SetSize(480, 800, webview.HintNone)
-	// w.Navigate(navUrl)
-	w.Run()
+func UrlFilter() error {
+	// var f func()
+	// var t *time.Timer
+	// f = func() {
+	// 	randWebsite()
+	// 	t = time.AfterFunc(time.Duration(5)*time.Second, f)
+	// }
+	// t = time.AfterFunc(time.Duration(5)*time.Second, f)
+	// defer t.Stop()
+	intervalFunc()
+	return nil
 }
+
+// func randWebsite() {
+// 	navUrl = websites[rand.Intn(len(websites))]
+// 	print(navUrl)
+// }
 
 func intervalFunc() {
 	ticker := time.NewTicker(5 * time.Second)
@@ -59,7 +48,6 @@ func intervalFunc() {
 			select {
 			case <-ticker.C:
 				navUrl = websites[rand.Intn(len(websites))]
-				w.Navigate(navUrl)
 				print(navUrl)
 			case <-c:
 				ticker.Stop()
