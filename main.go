@@ -1,7 +1,16 @@
 package main
 
+// include gtk header, to access the GTK related C-Types
+
+/*
+#cgo linux openbsd freebsd pkg-config: gtk+-3.0 webkit2gtk-4.0
+#include <gtk/gtk.h>
+*/
 import "C"
-import "github.com/webview/webview"
+
+import (
+	"github.com/webview/webview"
+)
 
 func main() {
 
