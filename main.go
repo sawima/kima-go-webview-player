@@ -9,10 +9,11 @@ package main
 import "C"
 
 import (
-	"math/rand"
 	"os"
 	"os/signal"
 	"time"
+
+	"kima-go-webview-player/socketclient"
 
 	"github.com/webview/webview"
 )
@@ -44,7 +45,8 @@ func main() {
 
 	w.SetTitle("Vending Machine")
 	w.SetSize(480, 800, webview.HintNone)
-	// w.Navigate(navUrl)
+	w.Navigate(navUrl)
+	intervalFunc()
 	w.Run()
 }
 
@@ -58,7 +60,8 @@ func intervalFunc() {
 		for {
 			select {
 			case <-ticker.C:
-				navUrl = websites[rand.Intn(len(websites))]
+				// navUrl = websites[rand.Intn(len(websites))]
+				navUrl = socketclient.ReadSocket("fetch url")
 				w.Navigate(navUrl)
 				print(navUrl)
 			case <-c:
