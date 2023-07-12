@@ -55,7 +55,7 @@ func main() {
 }
 
 func intervalFunc() {
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(1 * time.Second)
 	// quit := make(chan struct{})
 	// os.Signal(os.Interrupt,)
 	newUrl := ""
