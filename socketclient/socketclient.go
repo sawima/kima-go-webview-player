@@ -13,7 +13,7 @@ type recieveURL struct {
 	Reload bool   `json:"reload"`
 }
 
-func ReadSocket(input string) string {
+func ReadSocket(input string) (string, bool) {
 	socketData := &recieveURL{}
 	// origin := "http://192.168.8.100/"
 	// url := "ws://192.168.8.100:8899"
