@@ -35,5 +35,5 @@ func ReadSocket(input string) (string, bool) {
 	fmt.Printf("Received: %s.\n", msg[:n])
 	// return string(msg[:n])
 	json.Unmarshal(msg[:n], socketData)
-	return socketData.Url
+	return socketData.Url, socketData.Reload
 }
