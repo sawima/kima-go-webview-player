@@ -1,4 +1,4 @@
-// package socketclient
+package socketclient
 
 // import (
 // 	"testing"

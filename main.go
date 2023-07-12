@@ -29,7 +29,10 @@ var websites []string = []string{
 	"https://bi.aliyun.com/token3rd/screen/view/pc.htm?validityTime=120&bizdate=2023-07-11&pageId=6a80a6f0-268b-41af-8587-968794b046f9&accessId=INNER_60ee294786b8409aae1ed598e7e693bc&timestamp=1689061811298&signature=9uadF8AP7cT3cC2Vccdnwq%2BLIWzLgPrYUpKCxxp6bbM%3D",
 	"https://bi.aliyun.com/token3rd/screen/view/pc.htm?validityTime=120&bizdate=2023-07-11&pageId=9090b08e-b9ce-4f1c-a854-e2bef8722522&accessId=INNER_60ee294786b8409aae1ed598e7e693bc&timestamp=1689061811298&signature=jiCVJsF0ma029HQUtpDxxvJ73cy7JFgO3Q1170ImG3A%3D",
 }
-var navUrl = "http://localhost"
+
+const basicSite = "http://localhost:8081"
+
+var navUrl = basicSite
 var w = webview.New(true)
 
 func main() {
@@ -63,7 +66,10 @@ func intervalFunc() {
 			select {
 			case <-ticker.C:
 				// navUrl = websites[rand.Intn(len(websites))]
-				newUrl, _ = socketclient.ReadSocket("fetch url")
+				newUrl, reload := socketclient.ReadSocket("fetch url")
+				if reload {
+					w.Navigate(basicSite)
+				}
 				if newUrl != navUrl {
 					print("new url")
 					navUrl = newUrl
