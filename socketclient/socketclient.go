@@ -2,7 +2,6 @@ package socketclient
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"golang.org/x/net/websocket"
@@ -15,9 +14,6 @@ type recieveURL struct {
 
 func ReadSocket(input string) (string, bool) {
 	socketData := &recieveURL{}
-	// origin := "http://192.168.8.100/"
-	// url := "ws://192.168.8.100:8899"
-
 	origin := "http://127.0.0.1/"
 	url := "ws://127.0.0.1:8899"
 	ws, err := websocket.Dial(url, "echo-protocolx", origin)
@@ -32,8 +28,6 @@ func ReadSocket(input string) (string, bool) {
 	if n, err = ws.Read(msg); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Received: %s.\n", msg[:n])
-	// return string(msg[:n])
 	json.Unmarshal(msg[:n], socketData)
 	return socketData.Url, socketData.Reload
 }

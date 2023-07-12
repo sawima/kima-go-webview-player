@@ -36,11 +36,6 @@ var navUrl = basicSite
 var w = webview.New(true)
 
 func main() {
-
-	// url := "http://localhost:8888/"
-
-	// debug := true
-	// w := webview.New(debug)
 	window := w.Window()
 
 	defer w.Destroy()
@@ -56,8 +51,6 @@ func main() {
 
 func intervalFunc() {
 	ticker := time.NewTicker(1 * time.Second)
-	// quit := make(chan struct{})
-	// os.Signal(os.Interrupt,)
 	newUrl := ""
 	reload := false
 	quit := make(chan os.Signal, 1)
@@ -66,10 +59,7 @@ func intervalFunc() {
 		for {
 			select {
 			case <-ticker.C:
-				// navUrl = websites[rand.Intn(len(websites))]
 				newUrl, reload = socketclient.ReadSocket("fetch url")
-				print("----------reload-------------")
-				print(reload)
 				if reload {
 					w.Navigate(basicSite)
 				} else {
@@ -79,8 +69,6 @@ func intervalFunc() {
 						w.Navigate(newUrl)
 					}
 				}
-				print("==")
-				print(navUrl)
 			case <-quit:
 				ticker.Stop()
 				return
