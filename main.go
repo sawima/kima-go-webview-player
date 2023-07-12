@@ -70,15 +70,14 @@ func intervalFunc() {
 				newUrl, reload = socketclient.ReadSocket("fetch url")
 				print("----------reload-------------")
 				print(reload)
-
 				if reload {
 					w.Navigate(basicSite)
-					time.Sleep(200 * time.Microsecond)
-				}
-				if newUrl != navUrl {
-					print("new url")
-					navUrl = newUrl
-					w.Navigate(newUrl)
+				} else {
+					if newUrl != navUrl {
+						print("new url")
+						navUrl = newUrl
+						w.Navigate(newUrl)
+					}
 				}
 				print("==")
 				print(navUrl)
