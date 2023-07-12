@@ -59,6 +59,7 @@ func intervalFunc() {
 	// quit := make(chan struct{})
 	// os.Signal(os.Interrupt,)
 	newUrl := ""
+	reload := false
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	go func() {
@@ -66,7 +67,7 @@ func intervalFunc() {
 			select {
 			case <-ticker.C:
 				// navUrl = websites[rand.Intn(len(websites))]
-				newUrl, reload := socketclient.ReadSocket("fetch url")
+				newUrl, reload = socketclient.ReadSocket("fetch url")
 				if reload {
 					w.Navigate(basicSite)
 				}
