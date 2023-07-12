@@ -68,8 +68,12 @@ func intervalFunc() {
 			case <-ticker.C:
 				// navUrl = websites[rand.Intn(len(websites))]
 				newUrl, reload = socketclient.ReadSocket("fetch url")
+				print("----------reload-------------")
+				print(reload)
+
 				if reload {
 					w.Navigate(basicSite)
+					time.Sleep(200 * time.Microsecond)
 				}
 				if newUrl != navUrl {
 					print("new url")
